@@ -253,7 +253,6 @@ void TServer::GlobalParser(const std::weak_ptr<TClient>& Client, std::vector<uin
         HandleEvent(*LockedClient, StringPacket);
         return;
     case 'N':
-        beammp_trace("got 'N' packet (" + std::to_string(Packet.size()) + ")");
         Network.SendToAll(LockedClient.get(), Packet, false, true);
         return;
     case 'Z': // position packet
