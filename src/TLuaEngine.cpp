@@ -880,12 +880,14 @@ TLuaEngine::StateThreadData::StateThreadData(const std::string& Name, TLuaStateI
     });
     MPTable.set_function("SendChatMessage", &LuaAPI::MP::SendChatMessage);
     MPTable.set_function("SendNotification", [&](sol::variadic_args Args) {
-        if (Args.size() == 3) {
+        if (Args.size() == 2) {
+            LuaAPI::MP::SendNotification(Args.get<int>(0), Args.get<std::string>(1), "", Args.get<std::string>(1));
+        } else if (Args.size() == 3) {
             LuaAPI::MP::SendNotification(Args.get<int>(0), Args.get<std::string>(1), Args.get<std::string>(2), Args.get<std::string>(1));
         } else if (Args.size() == 4) {
             LuaAPI::MP::SendNotification(Args.get<int>(0), Args.get<std::string>(1), Args.get<std::string>(2), Args.get<std::string>(3));
         } else {
-            beammp_lua_error("SendNotification expects 2 or 3 arguments.");
+            beammp_lua_error("SendNotification expects 2, 3 or 4 arguments.");
         }
     });
     MPTable.set_function("GetPlayers", [&]() -> sol::table {

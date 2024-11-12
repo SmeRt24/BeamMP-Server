@@ -207,7 +207,7 @@ std::pair<bool, std::string> LuaAPI::MP::SendChatMessage(int ID, const std::stri
 
 std::pair<bool, std::string> LuaAPI::MP::SendNotification(int ID, const std::string& Message, const std::string& Icon, const std::string& Category) {
     std::pair<bool, std::string> Result;
-    std::string Packet = "N" + Category + ":" + Icon + ":" + Message;
+    std::string Packet = "n" + Category + ":" + Icon + ":" + Message;
     if (ID == -1) {
         Engine->Network().SendToAll(nullptr, StringToVector(Packet), true, true);
         Result.first = true;
