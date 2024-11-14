@@ -65,8 +65,8 @@ If you are building for ARM (like aarch64), you need to run `export VCPKG_FORCE_
 You can build on **Windows, Linux** or other platforms by following these steps:
 
 1. Check out the repository with git: `git clone --recursive https://github.com/BeamMP/BeamMP-Server`.
-2. Specify the server version to build by checking out a tag: `git checkout tags/v3.4.1` - [Possible versions/tags](https://github.com/BeamMP/BeamMP-Server/tags)
-3. Go into the directory `cd BeamMP-Server`.
+2. Go into the directory `cd BeamMP-Server`.
+3. Specify the server version to build by checking out a tag: `git checkout tags/v3.4.1` - [Possible versions/tags](https://github.com/BeamMP/BeamMP-Server/tags)
 4. Run CMake `cmake -S . -B bin -DCMAKE_BUILD_TYPE=Release` - this can take a few minutes and may take a lot of disk space and bandwidth.
 5. Build via `cmake --build bin --parallel --config Release -t BeamMP-Server`.
 6. Your executable can be found in `bin/`.
