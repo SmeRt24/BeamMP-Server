@@ -61,8 +61,6 @@ static constexpr std::string_view EnvStrInformationPacket = "BEAMMP_INFORMATION_
 static constexpr std::string_view StrPassword = "Password";
 
 // Misc
-static constexpr std::string_view StrSendErrors = "SendErrors";
-static constexpr std::string_view StrSendErrorsMessageEnabled = "SendErrorsShowMessage";
 static constexpr std::string_view StrHideUpdateMessages = "ImScaredOfUpdates";
 static constexpr std::string_view StrUpdateReminderTime = "UpdateReminderTime";
 
@@ -152,12 +150,8 @@ void TConfig::FlushToFile() {
     // Misc
     data["Misc"][StrHideUpdateMessages.data()] = Application::Settings.getAsBool(Settings::Key::Misc_ImScaredOfUpdates);
     SetComment(data["Misc"][StrHideUpdateMessages.data()].comments(), " Hides the periodic update message which notifies you of a new server version. You should really keep this on and always update as soon as possible. For more information visit https://wiki.beammp.com/en/home/server-maintenance#updating-the-server. An update message will always appear at startup regardless.");
-    data["Misc"][StrSendErrors.data()] = Application::Settings.getAsBool(Settings::Key::Misc_SendErrors);
     data["Misc"][StrUpdateReminderTime.data()] = Application::Settings.getAsString(Settings::Key::Misc_UpdateReminderTime);
     SetComment(data["Misc"][StrUpdateReminderTime.data()].comments(), " Specifies the time between update reminders. You can use any of \"s, min, h, d\" at the end to specify the units seconds, minutes, hours or days. So 30d or 0.5min will print the update message every 30 days or half a minute.");
-    SetComment(data["Misc"][StrSendErrors.data()].comments(), " If SendErrors is `true`, the server will send helpful info about crashes and other issues back to the BeamMP developers. This info may include your config, who is on your server at the time of the error, and similar general information. This kind of data is vital in helping us diagnose and fix issues faster. This has no impact on server performance. You can opt-out of this system by setting this to `false`");
-    data["Misc"][StrSendErrorsMessageEnabled.data()] = Application::Settings.getAsBool(Settings::Key::Misc_SendErrorsShowMessage);
-    SetComment(data["Misc"][StrSendErrorsMessageEnabled.data()].comments(), " You can turn on/off the SendErrors message you get on startup here");
     std::stringstream Ss;
     Ss << "# This is the BeamMP-Server config file.\n"
           "# Help & Documentation: `https://docs.beammp.com/server/server-maintenance/`\n"
@@ -265,9 +259,7 @@ void TConfig::ParseFromFile(std::string_view name) {
         TryReadValue(data, "General", StrLogChat, EnvStrLogChat, Settings::Key::General_LogChat);
         TryReadValue(data, "General", StrAllowGuests, EnvStrAllowGuests, Settings::Key::General_AllowGuests);
         // Misc
-        TryReadValue(data, "Misc", StrSendErrors, "", Settings::Key::Misc_SendErrors);
         TryReadValue(data, "Misc", StrHideUpdateMessages, "", Settings::Key::Misc_ImScaredOfUpdates);
-        TryReadValue(data, "Misc", StrSendErrorsMessageEnabled, "", Settings::Key::Misc_SendErrorsShowMessage);
         TryReadValue(data, "Misc", StrUpdateReminderTime, "", Settings::Key::Misc_UpdateReminderTime);
 
     } catch (const std::exception& err) {

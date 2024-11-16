@@ -139,7 +139,6 @@ void RegisterThread(const std::string& str);
 #define KB 1024llu
 #define MB (KB * 1024llu)
 #define GB (MB * 1024llu)
-#define SSU_UNRAW SECRET_SENTRY_URL
 
 #define _file_basename std::filesystem::path(__FILE__).filename().string()
 #define _line std::to_string(__LINE__)
