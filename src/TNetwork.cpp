@@ -430,15 +430,9 @@ std::shared_ptr<TClient> TNetwork::Authentication(TConnection&& RawConnection) {
         Reason = "No guests are allowed on this server! To join, sign up at: forum.beammp.com.";
     }
 
-    if (!NotAllowed && !NotAllowedWithReason) {
-        if (mServer.ClientCount() < size_t(Application::Settings.getAsInt(Settings::Key::General_MaxPlayers)) || BypassLimit) {
-            beammp_info("Identification success");
-            mServer.InsertClient(Client);
-            TCPClient(Client);
-        } else {
+    if (!NotAllowed && !NotAllowedWithReason && mServer.ClientCount() >= size_t(Application::Settings.getAsInt(Settings::Key::General_MaxPlayers)) && !BypassLimit) {
             NotAllowedWithReason = true;
             Reason = "Server full!";
-        }
     }
 
     if (NotAllowedWithReason) {
@@ -450,6 +444,12 @@ std::shared_ptr<TClient> TNetwork::Authentication(TConnection&& RawConnection) {
     auto PostFutures = LuaAPI::MP::Engine->TriggerEvent("postPlayerAuth", "", NotAllowed || NotAllowedWithReason, Reason, Client->GetName(), Client->GetRoles(), Client->IsGuest(), Client->GetIdentifiers());
     // the post event is not cancellable so we dont wait for it
     LuaAPI::MP::Engine->ReportErrors(PostFutures);
+
+    if (!NotAllowed && !NotAllowedWithReason) {
+        beammp_info("Identification success");
+        mServer.InsertClient(Client);
+        TCPClient(Client);
+    }
 
     return Client;
 }
