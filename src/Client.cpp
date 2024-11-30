@@ -79,13 +79,17 @@ std::string TClient::GetCarPositionRaw(int Ident) {
 void TClient::Disconnect(std::string_view Reason) {
     beammp_debugf("Disconnecting client {} for reason: {}", GetID(), Reason);
     boost::system::error_code ec;
-    mSocket.shutdown(socket_base::shutdown_both, ec);
-    if (ec) {
-        beammp_debugf("Failed to shutdown client socket: {}", ec.message());
-    }
-    mSocket.close(ec);
-    if (ec) {
-        beammp_debugf("Failed to close client socket: {}", ec.message());
+    if (mSocket.is_open()) {
+        mSocket.shutdown(socket_base::shutdown_both, ec);
+        if (ec) {
+            beammp_debugf("Failed to shutdown client socket: {}", ec.message());
+        }
+        mSocket.close(ec);
+        if (ec) {
+            beammp_debugf("Failed to close client socket: {}", ec.message());
+        }
+    } else {
+        beammp_debug("Socket is already closed.");
     }
 }
 
