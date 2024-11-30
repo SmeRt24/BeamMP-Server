@@ -68,8 +68,6 @@ struct Settings {
         // Keys have their TOML section name as prefix
 
         // [Misc]
-        Misc_SendErrorsShowMessage,
-        Misc_SendErrors,
         Misc_ImScaredOfUpdates,
         Misc_UpdateReminderTime,
 

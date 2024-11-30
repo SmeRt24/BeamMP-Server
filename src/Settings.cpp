@@ -35,8 +35,6 @@ Settings::Settings() {
         { General_Debug, false },
         { General_AllowGuests, true },
         { General_InformationPacket, true },
-        { Misc_SendErrorsShowMessage, true },
-        { Misc_SendErrors, true },
         { Misc_ImScaredOfUpdates, true },
         { Misc_UpdateReminderTime, "30s" }
     };
@@ -56,8 +54,6 @@ Settings::Settings() {
         { { "General", "Debug" }, { General_Debug, READ_WRITE } },
         { { "General", "AllowGuests" }, { General_AllowGuests, READ_WRITE } },
         { { "General", "InformationPacket" }, { General_InformationPacket, READ_WRITE } },
-        { { "Misc", "SendErrorsShowMessage" }, { Misc_SendErrorsShowMessage, READ_WRITE } },
-        { { "Misc", "SendErrors" }, { Misc_SendErrors, READ_WRITE } },
         { { "Misc", "ImScaredOfUpdates" }, { Misc_ImScaredOfUpdates, READ_WRITE } },
         { { "Misc", "UpdateReminderTime" }, { Misc_UpdateReminderTime, READ_WRITE } }
     };

@@ -108,8 +108,8 @@ A BeamMP-Developer must review your code in detail, and leave a review. If this 
 5. Run `git submodule update --init --recursive`.
 6. Make a new branch for your feature or fix from the branch you are on. You can do this via `git checkout -b <branch name>`. See [this section on branches](#branches) for more info on branch naming.
 7. Install all dependencies. Those are usually listed in the `README.md` in the branch you're in, or, more reliably, in one of the files in `.github/workflows` (if you can read `yaml`).
-8. Run CMake to configure the project. You can find tutorials on this online. You will want to tell CMake to build with `CMAKE_BUILD_TYPE=Debug`, for example by passing it to CMake via the commandline switch `-DCMAKE_BUILD_TYPE=Debug`. You may also want to turn off sentry by setting `SENTRY_BACKEND=none` (for example via commandline switch `-DSENTRY_BACKEND=none`). An example invocation on Linux with GNU make would be 
-`cmake . -DCMAKE_BUILD_TYPE=Debug -DSENTRY_BACKEND=none` . 
+8. Run CMake to configure the project. You can find tutorials on this online. You will want to tell CMake to build with `CMAKE_BUILD_TYPE=Debug`, for example by passing it to CMake via the commandline switch `-DCMAKE_BUILD_TYPE=Debug`. An example invocation on Linux with GNU make would be 
+`cmake . -DCMAKE_BUILD_TYPE=Debug` . 
 9. Build the `BeamMP-Server` target to build the BeamMP-Server, or the `BeamMP-Server-tests` target to build the unit-tests (does not include a working server). In the example from 8. (on Linux), you could build with  `make BeamMP-Server`, `make -j BeamMP-Server` or `cmake --build . --parallel --target BeamMP-Server` . Or, on Windows, (in Visual Studio), you would just press some big green "run" or "debug" button.
 10. When making changes, refer to [this section on how to commit properly](#how-to-commit). Not following those guidelines will result in your changes being rejected, so please take a look.
 11. Make sure to add Unit-tests with `doctest` if you build new stuff. You can find examples all over the latest version of the codebase (search for `TEST_CASE`).
