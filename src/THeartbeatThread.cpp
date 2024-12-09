@@ -67,11 +67,15 @@ void THeartbeatThread::operator()() {
         bool Ok = false;
         for (const auto& Url : Application::GetBackendUrlsInOrder()) {
             T = Http::POST(Url, 443, Target, Body, "application/json", &ResponseCode, { { "api-v", "2" } });
+
+            if (!Application::Settings.getAsBool(Settings::Key::General_Private)) {
+                beammp_debug("Backend response was: `" + T + "`");
+            }
+
             Doc.Parse(T.data(), T.size());
             if (Doc.HasParseError() || !Doc.IsObject()) {
                 if (!Application::Settings.getAsBool(Settings::Key::General_Private)) {
                     beammp_trace("Backend response failed to parse as valid json");
-                    beammp_trace("Response was: `" + T + "`");
                 }
             } else if (ResponseCode != 200) {
                 beammp_errorf("Response code from the heartbeat: {}", ResponseCode);

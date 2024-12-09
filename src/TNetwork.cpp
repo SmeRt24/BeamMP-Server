@@ -354,6 +354,8 @@ std::shared_ptr<TClient> TNetwork::Authentication(TConnection&& RawConnection) {
         return nullptr;
     }
 
+    beammp_debug("Response from authentication backend: " + AuthResStr);
+
     try {
         nlohmann::json AuthRes = nlohmann::json::parse(AuthResStr);
 
